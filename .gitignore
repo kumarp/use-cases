@@ -1,9 +1,0 @@
-*.project
-*.log
-*.classpath
-*.settings/
-*/target/**
-.classpath
-.project
-.settings/
-target/
