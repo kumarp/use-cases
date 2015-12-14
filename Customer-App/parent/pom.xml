@@ -44,6 +44,7 @@
         <cxf-codegen-version>3.0.1</cxf-codegen-version>
         <apache.cxf.version>2.7.0.redhat-610379</apache.cxf.version>
         <apache.cxf.plugin.version>2.7.0.redhat-610379</apache.cxf.plugin.version>
+        <junit.version>4.11</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -55,6 +56,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+			</dependency>       
         </dependencies>
     </dependencyManagement>
 
