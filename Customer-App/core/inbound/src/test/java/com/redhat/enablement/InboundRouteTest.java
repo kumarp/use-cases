@@ -73,7 +73,7 @@ public class InboundRouteTest extends CamelSpringTestSupport {
 		HttpClient client;
 		client = HttpClientBuilder.create().build();
 		stringEntity.setContentType("application/xml");
-		HttpPost httpPost = new HttpPost("http://localhost:9090/deim/add");
+		HttpPost httpPost = new HttpPost("http://localhost:9999/deim/add");
 		httpPost.setEntity(stringEntity);
 		HttpResponse response = client.execute( httpPost );
 		
@@ -102,6 +102,7 @@ public class InboundRouteTest extends CamelSpringTestSupport {
 
 	@Override
 	protected AbstractApplicationContext createApplicationContext() {
-		return new ClassPathXmlApplicationContext("/META-INF/spring/bundle-context.xml");
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/spring/bundle-context.xml");
+		return context;
 	}
 }

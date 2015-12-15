@@ -32,7 +32,7 @@
 	
 	<bean id="cxfService" class="com.redhat.enablement.CXFServiceImpl"/>	
  
-     <jaxrs:server id="cxfServiceImpl" address="/deim">
+     <jaxrs:server id="cxfServiceImpl" address="http://localhost:9999/deim">
         <jaxrs:serviceBeans>
            <ref bean="cxfService"/>
         </jaxrs:serviceBeans>
