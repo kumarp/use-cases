@@ -1,0 +1,15 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Customer :: Application 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ parent ---
+[INFO] com.customer.app:parent:pom:1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.310 s
+[INFO] Finished at: 2015-12-15T12:01:32-05:00
+[INFO] Final Memory: 15M/212M
+[INFO] ------------------------------------------------------------------------

@@ -45,6 +45,7 @@
         <apache.cxf.version>3.0.4.redhat-620133</apache.cxf.version>
         <apache.cxf.plugin.version>3.0.4.redhat-620133</apache.cxf.plugin.version>
         <junit.version>4.11</junit.version>
+        <apache.httpcomponents.version>4.3.2</apache.httpcomponents.version>
     </properties>
 
     <dependencyManagement>
@@ -65,7 +66,12 @@
     			<groupId>com.customer.app</groupId>
     			<artifactId>artifacts</artifactId>
     			<version>${project.version}</version>
-         	</dependency>   
+         	</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${apache.httpcomponents.version}</version>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 
