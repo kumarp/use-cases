@@ -30,18 +30,35 @@
         http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
         http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
 	
-	<bean id="cxfService" class="com.redhat.enablement.CXFServiceImpl"/>	
+	<bean id="service" class="com.redhat.enablement.implemenation.CXFServiceImpl"/>	
  
-     <jaxrs:server id="cxfServiceImpl" address="http://localhost:9999/deim">
+   <bean id="activemqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="vm://localhost?broker.persistent=false" />
+        <property name="userName" value="admin" />
+        <property name="password" value="admin" />
+    </bean>
+ 
+     <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
+        <property name="connectionFactory" ref="activemqConnectionFactory" />
+    </bean>
+ 
+    <jaxrs:server id="restService" address="http://localhost:8181/cxf/test">
         <jaxrs:serviceBeans>
-           <ref bean="cxfService"/>
-        </jaxrs:serviceBeans>
-     </jaxrs:server>
+        	<ref bean="service"/>
+    	</jaxrs:serviceBeans>
+    </jaxrs:server>
 		
-	<camel:camelContext id="camelContext" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">
-		<camel:route autoStartup="true">
-			<camel:from uri="direct:start"/>
-			<camel:log message="test"/>
+	<camel:camelContext id="camelContext" xmlns="http://camel.apache.org/schema/spring" autoStartup="true">	 
+		<camel:dataFormats>
+			<camel:jaxb id="dataFormatter" prettyPrint="true" contextPath="com.customer.app"/>
+		</camel:dataFormats>
+	
+		<camel:route id="masrhalRoute" autoStartup="true">
+			<camel:from uri="direct:marshall"/>
+			<marshal ref="dataFormatter"/>
+			<to uri="activemq:queue:q.empi.deim.in" pattern="InOnly"/>
+			<transform><constant>Done</constant></transform>
+			<camel:log message="Post-marshalling: ${body}"/>
 		</camel:route>
 	</camel:camelContext>
 </beans>

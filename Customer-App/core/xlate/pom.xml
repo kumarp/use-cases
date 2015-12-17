@@ -23,6 +23,34 @@
       		<groupId>org.slf4j</groupId>
       		<artifactId>slf4j-log4j12</artifactId>
     	</dependency>
+    	    	<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.camel</groupId>
+        	<artifactId>camel-spring</artifactId>
+        </dependency> 
+        <dependency>
+           <groupId>org.apache.camel</groupId>
+           <artifactId>camel-test-spring</artifactId>
+         </dependency>
+         <dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		  </dependency>
+		  <dependency>
+		      <groupId>org.apache.camel</groupId>
+		      <artifactId>camel-jms</artifactId>
+    	  </dependency>
+		  <dependency>
+		      <groupId>org.apache.activemq</groupId>
+		      <artifactId>activemq-camel</artifactId>
+    	  </dependency>		  
+          <dependency>
+    		<groupId>com.customer.app</groupId>
+    		<artifactId>artifacts</artifactId>
+         </dependency>
 	</dependencies>
 
 	<build>

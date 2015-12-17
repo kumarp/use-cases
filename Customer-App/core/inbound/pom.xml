@@ -55,6 +55,14 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 		  </dependency>
+		  <dependency>
+          	<groupId>org.apache.camel</groupId>
+            <artifactId>camel-jaxb</artifactId>
+          </dependency>
+          <dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-camel</artifactId>
+		  </dependency>
           <dependency>
     		<groupId>com.customer.app</groupId>
     		<artifactId>artifacts</artifactId>
@@ -72,7 +80,20 @@
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
                         <Bundle-Name>Customer Application Core (Application Core) - ${project.artifactId}</Bundle-Name>
-                        <Import-Package/>
+                        <Include-Resource>
+                            {maven-resources}
+                        </Include-Resource>
+                        <Import-Package>
+	                        com.sun.mdm.index.webservice,
+	                        com.customer.app,
+	                        com.customer.app.response,
+	                        javax.ws.rs,
+	                        javax.ws.rs.core,
+	                        org.apache.camel, 
+	                        org.springframework.beans.factory.annotation,
+	                        org.apache.activemq, 
+	                        org.apache.activemq.camel.component
+                         </Import-Package>
                         <Export-Package/>
                     </instructions>
                 </configuration>
