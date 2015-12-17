@@ -4,47 +4,40 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.camel.EndpointInject;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.test.spring.CamelSpringTestSupport;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 
-@Ignore
+@ContextConfiguration("classpath:bundle-context.xml")
 public class UnmarshallTest extends CamelSpringTestSupport {
     private static final Logger LOG = LoggerFactory
 	    .getLogger(UnmarshallTest.class);
 
-    @Produce(uri = "direct:start")
+    @Autowired
+    protected CamelContext camelContext;
+
+    @Produce(uri = "q.empi.deim.in")
     protected ProducerTemplate template;
 
-    @EndpointInject(uri = "mock:direct:converter")
-    protected MockEndpoint resultEndpoint;
-
     @Test
-    public void shouldUnmarshalAPerson() throws IOException,
-	    InterruptedException {
+    public void shouldConvertAPerson() throws IOException, InterruptedException {
 	// createApplicationContext();
-	// Given a file
+	// Given a valid file of type PatientDemographics
 	String file = readFile("src/test/resources/PatientDemographics.xml");
-	// System.out.println(file);
-	resultEndpoint.setExpectedMessageCount(1);
 
-	// resultEndpoint.setExpectedMessageCount(1);
+	// When I send a message to the in queue
+	template.setDefaultEndpointUri("activemq:queue:q.empi.deim.in");
+	template.sendBody("activemq:queue:q.empi.deim.in", file);
 
-	// When an endpoint is hit
-	template.sendBody(file);
-
-	Thread.sleep(5000);
-	// Then I should have an extra person
-	resultEndpoint.assertIsSatisfied();
-
+	// Then I should get a message of the converted type
     }
 
     public String readFile(String fileLocation) throws IOException {
@@ -63,7 +56,7 @@ public class UnmarshallTest extends CamelSpringTestSupport {
     @Override
     protected AbstractApplicationContext createApplicationContext() {
 	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-		"/META-INF/spring/bundle-context.xml");
+		"bundle-context.xml");
 	return context;
     }
 
